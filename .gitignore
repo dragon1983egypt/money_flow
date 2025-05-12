@@ -1,0 +1,11 @@
+
+#виртуальное окружение, python
+venv/
+__pycache__/
+
+#ide
+.vscode
+
+#django db
+db.sqlite3
+media/
