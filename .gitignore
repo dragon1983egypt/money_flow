@@ -2,6 +2,7 @@
 #виртуальное окружение, python
 venv/
 __pycache__/
+.env
 
 #ide
 .vscode
@@ -9,3 +10,4 @@ __pycache__/
 #django db
 db.sqlite3
 media/
+staticfiles/
