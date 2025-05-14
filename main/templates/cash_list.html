@@ -5,7 +5,7 @@
 <h4>Список движения денежных средств(ДДС)</h4>
 
 
-
+        <!--  Форма записи данных -->  
 <form  method="get" class="row g-3">
     <div class="col-md-6">
       <label class="form-label">Дата начинается с:</label>
@@ -19,6 +19,7 @@
       <label class="form-label">Статус</label>
       <option value="">Все</option>
       <select name="status" class="form-select">
+        <!--  Проверка фильтрация -->  
         {% for s in statuses %}
         <option value="{{ s.id}}" {%if filters.status==s.id|stringformat:"s" %}selected{% endif %}>{{ s.name}} </option>
         {% endfor %}
@@ -26,8 +27,9 @@
     </div>
     <div class="col-12">
         <label class="form-label">Тип</label>
-        <option value="">Все</option>
+        <option value="">Все</option>  
         <select name="type" class="form-select">
+            <!--  Проверка фильтрация -->  
           {% for t in types %}
           <option value="{{ t.id}}" {%if filters.type==t.id|stringformat:"t" %}selected{% endif %}>{{ t.name}} </option>
           {% endfor %}
@@ -37,6 +39,7 @@
         <label class="form-label">Категория</label>
         <option value="">Все</option>
         <select name="category" class="form-select">
+            <!--  Проверка фильтрация -->  
           {% for c in categories %}
           <option value="{{ c.id}}" {%if filters.category==c.id|stringformat:"t" %}selected{% endif %}>{{ c.name}} </option>
           {% endfor %}
@@ -46,6 +49,7 @@
         <label class="form-label">Подкатегория</label>
         <option value="">Все</option>
         <select name="category" class="form-select">
+            <!--  Проверка фильтрация -->  
           {% for subc in subcategories %}
           <option value="{{ subc.id}}" {%if filters.subcategory==subc.id|stringformat:"t" %}selected{% endif %}>{{ subc.name}} </option>
           {% endfor %}
@@ -54,6 +58,38 @@
     <div class="col-12">
         <button type="submit" class="btn-info">Фмльтрация</button>
     </div>
+</form>
 
+
+<!--  Создание таблицы с данными -->  
+<table class="table_1">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Статус</th>
+            <th>Тип</th>
+            <th>Категория</th>
+            <th>Подкатегория</th>
+            <th>Сумма</th>
+            <th>Комментарий</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in transactions %}
+        <tr>
+            <td>{{ t.date}}</td>
+            <td>{{ t.status}}</td>
+            <td>{{ t.category}}</td>
+            <td>{{ t.subcategory }}</td>
+            <td>{{ t.amount }}</td>
+            <td>{{ t.comment }}</td>
+            <td>
+                <a href="{% url "main:transaction_edit t.id" %}" class="btn btn-secondary">отредактировать</a>
+                <a href="main:transaction_delete t.id" class="btn btn-danger">Удалить</a>
+            </td>
+        </tr>    
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock content %}

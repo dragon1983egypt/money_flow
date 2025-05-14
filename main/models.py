@@ -6,14 +6,14 @@ from django.utils import timezone
             #++++++создаем модели++++ 
             #++++++ модель статус++++ 
 class Status(models.Model):
-    name = models.CharField(max_length=150, unique=True, verbose_name='Статус')
+    name = models.CharField(max_length=150, verbose_name='Статус')
     
     def __str__(self):
         return self.name
     
             #++++++ модель тип транзакции++++ 
 class TransactionType(models.Model):
-    name = models.CharField(max_length=150, unigue=True, verbose_name='Транзакции')
+    name = models.CharField(max_length=150, verbose_name='Тип транзакции')
     
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class TransactionType(models.Model):
             #++++++ модель категория++++ 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Категория')
-    transaction_type = models.ForeignKey(TransactionType, on_delete=models.CASCADE, related_name='categories')
+    transaction_type = models.ForeignKey(TransactionType, on_delete=models.CASCADE)
     
     def __str__(self):
         return f'{self.name} ({self.transaction_type.name})'
@@ -29,7 +29,7 @@ class Category(models.Model):
             #++++++ модель подкатегория++++ 
 class SubCategory(models.Model):
     name = models.CharField(max_length=150, verbose_name='Подкатегория')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     
     def __str__(self):
         return f'{self.name} {self.category.name} '
@@ -38,10 +38,10 @@ class SubCategory(models.Model):
                     #++++++ модель транзакция++++
 class Transaction(models.Model):
     date = models.DateField(default=timezone.now, verbose_name='Дата')
-    status = models.ForeignKey(Status, on_delete=models.PROTECT, related_name='transactions', verbose_name='Статус')
-    transaction_type = models.ForeignKey(TransactionType, on_delete=models.PROTECT, related_name='transactions', verbose_name='Тип транзакции')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='transactions', verbose_name='Категория')
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.PROTECT, related_name='transactions', verbose_name='Подкатегория')
+    status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name='Статус')
+    transaction_type = models.ForeignKey(TransactionType, on_delete=models.PROTECT, verbose_name='Тип транзакции')
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.PROTECT, verbose_name='Подкатегория')
     summa = models.DecimalField(max_digits=14, decimal_places=2, verbose_name='Сумма')
     comment = models.TextField(blank=True, null=True, verbose_name='Комментарии')
     
