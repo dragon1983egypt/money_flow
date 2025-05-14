@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h4>Список движения денежных средств(ДДС)</h4>
+
+
+
+<form  method="get" class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Дата начинается с:</label>
+      <input type="date" name="date_from" class="form-control" value={{ filters.date_from}}>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Дата по это:</label>
+        <input type="date" name="date_to" class="form-control" value={{ filters.date_to}}>
+    </div>
+    <div class="col-12">
+      <label class="form-label">Статус</label>
+      <option value="">Все</option>
+      <select name="status" class="form-select">
+        {% for s in statuses %}
+        <option value="{{ s.id}}" {%if filters.status==s.id|stringformat:"s" %}selected{% endif %}>{{ s.name}} </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-12">
+        <label class="form-label">Тип</label>
+        <option value="">Все</option>
+        <select name="type" class="form-select">
+          {% for t in types %}
+          <option value="{{ t.id}}" {%if filters.type==t.id|stringformat:"t" %}selected{% endif %}>{{ t.name}} </option>
+          {% endfor %}
+        </select>
+      </div>
+    <div class="col-12">
+        <label class="form-label">Категория</label>
+        <option value="">Все</option>
+        <select name="category" class="form-select">
+          {% for c in categories %}
+          <option value="{{ c.id}}" {%if filters.category==c.id|stringformat:"t" %}selected{% endif %}>{{ c.name}} </option>
+          {% endfor %}
+        </select>
+    </div>
+    <div class="col-12">
+        <label class="form-label">Подкатегория</label>
+        <option value="">Все</option>
+        <select name="category" class="form-select">
+          {% for subc in subcategories %}
+          <option value="{{ subc.id}}" {%if filters.subcategory==subc.id|stringformat:"t" %}selected{% endif %}>{{ subc.name}} </option>
+          {% endfor %}
+        </select>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn-info">Фмльтрация</button>
+    </div>
+
+
+{% endblock content %}

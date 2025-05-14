@@ -2,13 +2,19 @@ from django.contrib import admin
 
 from main.models import Category, Status, SubCategory, Transaction, TransactionType
 
-# Register your models here.
 
+
+
+                #++++++ административная панель ++++
+@admin.register(TransactionType)
+class TransactionTypeAdmin(admin.ModelAdmin):
+    list_display =( 'id', 'name')
+    search_fields = ('name')
+           
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
     list_display =( 'id', 'name')
     search_fields = ('name')
-
 
 
 @admin.register(Category)
@@ -18,20 +24,11 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name')
 
 
-
 @admin.register(SubCategory)
 class SubCategotyAdmin(admin.ModelAdmin):
     list_filter = ('transaction_type')
     list_display =( 'id', 'name', 'category')
     search_fields = ('name')
-
-
-
-@admin.register(TransactionType)
-class TransactionTypeAdmin(admin.ModelAdmin):
-    list_display =( 'id', 'name')
-    search_fields = ('name')
-
 
 
 @admin.register(Transaction)
