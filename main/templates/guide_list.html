@@ -1,1 +1,120 @@
 {% extends "base.html" %}
+{% block content %}
+
+<h1 style="color:blue;text-align:center;text-decoration:underline;font-style:oblique">Справочники:</h1>
+
+<h4 style="color:blue;text-align:left;text-decoration:underline;font-style:oblique">Тип транзакции</h4>
+<a href="{% url "main:transtype_create" %}" class="btn btn-success btn-sm-mb-1">Добавить</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Имя операции
+            </th>
+        </tr>
+    </thead> 
+    <tbody>
+        {% for t in types %}
+            <tr>
+                <td>
+                    {{ t.id}}
+                </td>
+                <td>
+                    {{ t.name}}
+                </td>
+                <td>
+                    <a class="btn btn-secondary btn-sm mb-1" href="{% url "main:transtype_edit" t.id %}">Отредактировать</a>
+                    <a class="btn btn-danger btn-sm mb-1" href="{% url "main:transtype_delete" t.id %}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h4 style="color:blue;text-align:left;text-decoration:underline;font-style:oblique"> Статус</h4>
+<a href="{% url "main:status_create" %}" class="btn btn-success btn-sm mb-1">Добавить</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Имя операции
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in statuses %}
+            <tr>
+                <td>
+                    {{ s.id}}
+                </td>
+                <td>
+                    {{ s.name}}
+                </td>
+                <td>
+                    <a class="btn btn-secondary btn-sm mb-1" href="{% url "main:status_edit" s.id %}">Отредактировать</a>
+                    <a class="btn btn-danger btn-sm mb-1" href="{% url "main:status_delete" s.id %}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h4 style="color:blue;text-align:left;text-decoration:underline;font-style:oblique"> Категория</h4>
+<a href="{% url "main:category_create" %}" class="btn btn-success btn-sm mb-1">Добавить</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя операции</th>
+            <th>Тип транзакции</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in categories %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.transaction_type.name }}</td>
+            <td>
+                <a class="btn btn-secondary btn-sm mb-1" href="{% url 'main:category_edit' c.id %}">Отредактировать</a>
+                <a class="btn btn-danger btn-sm mb-1" href="{% url 'main:category_delete' c.id %}">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+<h4 style="color:blue;text-align:left;text-decoration:underline;font-style:oblique">Подкатегория</h4>
+<a href="{% url "main:subcategory_create" %}" class="btn btn-success btn-sm mb-1">Добавить</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя операции</th>
+            <th>Категория</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subc in subcategories %}
+        <tr>
+            <td>{{ subc.id }}</td>
+            <td>{{ subc.name }}</td>
+            <td>{{ subc.category.name }}</td>
+            <td>
+                <a class="btn btn-secondary btn-sm mb-1" href="{% url 'main:subcategory_edit' subc.id %}">Отредактировать</a>
+                <a class="btn btn-danger btn-sm mb-1" href="{% url 'main:subcategory_delete' subc.id %}">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

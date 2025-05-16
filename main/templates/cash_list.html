@@ -2,90 +2,100 @@
 {% load static %}
 
 {% block content %}
-<h4>Список движения денежных средств(ДДС)</h4>
+<h4 style="color:blue;text-align:center;text-decoration:underline"> Движения денежных средств(ДДС)</h4>
 
 
         <!--  Форма записи данных -->  
-<form  method="get" class="row g-3">
-    <div class="col-md-6">
-      <label class="form-label">Дата начинается с:</label>
+<form  method="get" class="row lg-12" style="text-align:left;color:blue">
+    <div class="col-12">
+      <label class="form-label">Дата с:</label>
       <input type="date" name="date_from" class="form-control" value={{ filters.date_from}}>
     </div>
-    <div class="col-md-6">
-        <label class="form-label">Дата по это:</label>
+    <div class="col-12">
+        <label class="form-label">Дата по:</label>
         <input type="date" name="date_to" class="form-control" value={{ filters.date_to}}>
     </div>
     <div class="col-12">
       <label class="form-label">Статус</label>
-      <option value="">Все</option>
+      
       <select name="status" class="form-select">
+        <option value="">Все статусы переводов</option>
+        <option value="">статус_1</option>
+        <option value="">статус_2</option>
         <!--  Проверка фильтрация -->  
         {% for s in statuses %}
-        <option value="{{ s.id}}" {%if filters.status==s.id|stringformat:"s" %}selected{% endif %}>{{ s.name}} </option>
+          <option value="{{ s.id }}" {% if filters.status == s.id|stringformat:"s" %}selected{% endif %}>{{ s.name }}</option>
         {% endfor %}
       </select>
     </div>
     <div class="col-12">
-        <label class="form-label">Тип</label>
-        <option value="">Все</option>  
+        <label class="form-label">Тип транзакций</label>
         <select name="type" class="form-select">
+          <option value="">Все типы транзакзиций</option>
+          <option value="">тип_1</option>
+          <option value="">тип_2</option>  
             <!--  Проверка фильтрация -->  
           {% for t in types %}
-          <option value="{{ t.id}}" {%if filters.type==t.id|stringformat:"t" %}selected{% endif %}>{{ t.name}} </option>
+            <option value="{{ t.id }}" {% if filters.type == t.id|stringformat:"t" %}selected{% endif %}>{{ t.name }}</option>
           {% endfor %}
         </select>
       </div>
     <div class="col-12">
         <label class="form-label">Категория</label>
-        <option value="">Все</option>
         <select name="category" class="form-select">
+          <option value="">Все категории</option>
+          <option value="">категория_1</option>
+          <option value="">категория_2</option>
             <!--  Проверка фильтрация -->  
           {% for c in categories %}
-          <option value="{{ c.id}}" {%if filters.category==c.id|stringformat:"t" %}selected{% endif %}>{{ c.name}} </option>
+            <option value="{{ c.id }}" {% if filters.status == c.id|stringformat:"c" %}selected{% endif %}>{{ c.name }}</option>
           {% endfor %}
-        </select>
+        </select>  
     </div>
     <div class="col-12">
         <label class="form-label">Подкатегория</label>
-        <option value="">Все</option>
-        <select name="category" class="form-select">
+        <select name="subcategory" class="form-select">
+          <option value="">Все подкатегории</option>
+          <option value="">Подкатегории_1</option>
+          <option value="">подкатегория_2</option>
             <!--  Проверка фильтрация -->  
           {% for subc in subcategories %}
-          <option value="{{ subc.id}}" {%if filters.subcategory==subc.id|stringformat:"t" %}selected{% endif %}>{{ subc.name}} </option>
+            <option value="{{ subc.id }}" {% if filters.status == subc.id|stringformat:"subc" %}selected{% endif %}>{{ subc.name }}</option>
           {% endfor %}
         </select>
     </div>
-    <div class="col-12">
-        <button type="submit" class="btn-info">Фмльтрация</button>
+    <div class="col-12" style="margin:10px">
+        <button  type="submit" class="btn btn-info" title="Просмотр записи по фильтрам">Фильтрация</button>
     </div>
 </form>
 
-
 <!--  Создание таблицы с данными -->  
-<table class="table_1">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>Дата</th>
-            <th>Статус</th>
-            <th>Тип</th>
-            <th>Категория</th>
-            <th>Подкатегория</th>
-            <th>Сумма</th>
-            <th>Комментарий</th>
+            <th style="border: 1px solid blue">Дата</th>
+            <th style="border: 1px solid blue">Статус</th>
+            <th style="border: 1px solid blue">Тип</th>
+            <th style="border: 1px solid blue">Категория</th>
+            <th style="border: 1px solid blue">Подкатегория</th>
+            <th style="border: 1px solid blue">Сумма</th>
+            <th style="border: 1px solid blue">Комментарий</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody> 
+        <!--  написание цикла --> 
         {% for t in transactions %}
         <tr>
             <td>{{ t.date}}</td>
-            <td>{{ t.status}}</td>
-            <td>{{ t.category}}</td>
-            <td>{{ t.subcategory }}</td>
-            <td>{{ t.amount }}</td>
+            <td>{{ t.status.name}}</td>
+            <td>{{ t.transactions_type.name}}</td>
+            <td>{{ t.category.name}}</td>
+            <td>{{ t.subcategory.name }}</td>
+            <td>{{ t.summa }}</td>
             <td>{{ t.comment }}</td>
             <td>
-                <a href="{% url "main:transaction_edit t.id" %}" class="btn btn-secondary">отредактировать</a>
-                <a href="main:transaction_delete t.id" class="btn btn-danger">Удалить</a>
+              <a href="{% url "main:transaction_edit" t.id %}" class="btn btn-secondary" style="border: 1px solid black">отредактировать</a>
+              <a href="{% url "main:transaction_delete" t.id %}"  class="btn btn-danger" style="border: 1px solid black">Удалить</a>
             </td>
         </tr>    
         {% endfor %}
@@ -93,3 +103,4 @@
 </table>
 
 {% endblock content %}
+

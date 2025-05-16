@@ -2,13 +2,13 @@
 
 
 {% block content %}
-<h3>{{title}}</h3>
+<h3 style="color:black">{{title}}</h3>
 <form method="post" class="mb-4">
     {% csrf_token %}
     {{ form.as_p }}
-    {% if delete_confirm%}
+    {% if delete_confirm %}
         <button type='submit' class= "btn btn-danger">Удалить запись</button>
-        <a href="{% url "main:transaction_list" %}" class="btn btn-dark">Отмена удаления записи</a>
+        <a href="{% url "main:transaction_list" %}" class="btn btn-dark">Отмена</a>
     {% else %}
         <button type='submit' class= "btn btn-primary">Сохранить запись</button>
     {% endif %}
