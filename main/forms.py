@@ -8,31 +8,27 @@ class TransactionTypeForm(forms.ModelForm):
     class Meta:
         model = TransactionType
         fields = ["name"]
-        verbose_name = 'тип транзакции'
-        verbose_name_plural = 'типы транзакций'
+        
 
 
 class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
         fields = ["name"]
-        verbose_name = 'статус'
-        verbose_name_plural = 'статусы'
+       
 
 
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ["name", "transaction_type"]
-        verbose_name = 'категория'
-        verbose_name_plural = 'категории'
+        
 
 class SubCategoryForm(forms.ModelForm):
     class Meta:
         model = SubCategory
         fields = ["name", "category"]
-        verbose_name = 'подкатегория'
-        verbose_name_plural = 'подкатегории'
+        
 
 
 class TransactionForm(forms.ModelForm):
@@ -51,8 +47,7 @@ class TransactionForm(forms.ModelForm):
             "summa",
             "comment",
         )
-        verbose_name = 'транзакция'
-        verbose_name_plural = 'транзакции'
+     
         # применение метода init   и фильтрация
 
     def __init__(self, *args, **kwargs):
