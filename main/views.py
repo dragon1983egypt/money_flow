@@ -85,16 +85,15 @@ def transaction_edit(request, pk):
         if form.is_valid():
             form.save()
             return redirect("main:transaction_list")
-        else:
-            form = TransactionForm(instance=transaction)
-        return render(
-            request, 
-            "cash_form.html", 
-            {"form": form, "title": "Редактирование записи"},
-        )
+    else:
+        form = TransactionForm(instance=transaction)
+    return render(
+        request, "cash-form.html", {"form": form, "title": "Редактирование записи"}
+    )
+
+    #  ++++++++++++ удаление запси+++++++++++
 
 
-        #  ++++++++++++ удаление запси+++++++++++
 def transaction_delete(request, pk):
     transaction = get_object_or_404(Transaction, pk=pk)
     if request.method == "POST":
@@ -102,43 +101,50 @@ def transaction_delete(request, pk):
         return redirect("main:transaction_list")
     return render(
         request,
-        "cash_form.html",
-        {"transaction": transaction, "delete_confirm": True, "title": "Удаление записи"},
+        "cash-form.html",
+        {
+            "transaction": transaction,
+            "delete_confirm": True,
+            "title": "Удаление записи",
+        },
     )
 
-
-
     # ++++++++++++Справочники+++++++++++++++++
+
+
 def guide_list(request):
     statuses = Status.objects.all()
     types = TransactionType.objects.all()
     categories = Category.objects.all()
     subcategories = SubCategory.objects.all()
     return render(
-        request, "guide_list.html", {
+        request,
+        "guide-list.html",
+        {
             "statuses": statuses,
             "types": types,
             "categories": categories,
             "subcategories": subcategories,
-    })
-
-
+        },
+    )
 
     # ++++++++++++++Статус+++++++++++++++++++++
     # ++++++++++++++Создать+++++++++++++++++++++
+
+
 def status_create(request):
     if request.method == "POST":
         form = StatusForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = StatusForm()
-        return render(
-            request, "guide_form.html", {"form": form, "title": "Создан новый статус"}
-        )
+    else:
+        form = StatusForm()
+    return render(
+        request, "guide-form.html", {"form": form, "title": "Создан новый статус"}
+    )
 
-        # ++++++++++++++Редактировать+++++++++++++++++++++
+    # ++++++++++++++Редактировать+++++++++++++++++++++
 
 
 def status_edit(request, pk):
@@ -148,13 +154,13 @@ def status_edit(request, pk):
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = StatusForm(instance=status)
-        return render(
-            request, "guide_form.html", {"form": form, "title": "Статус отредактирован"}
-        )
+    else:
+        form = StatusForm(instance=status)
+    return render(
+        request, "guide-form.html", {"form": form, "title": "Статус отредактирован"}
+    )
 
-        # ++++++++++++++Удалить+++++++++++++++++++++
+    # ++++++++++++++Удалить+++++++++++++++++++++
 
 
 def status_delete(request, pk):
@@ -164,7 +170,7 @@ def status_delete(request, pk):
         return redirect("main:guide_list")
     return render(
         request,
-        "guide_form.html",
+        "guide-form.html",
         {"object": status, "delete_confirm": True, "title": "Статус удален"},
     )
 
@@ -178,13 +184,13 @@ def transtype_create(request):
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = TransactionTypeForm()
-        return render(
-            request, "guide_form.html", {"form": form, "title": "Создан новый тип "}
-        )
+    else:
+        form = TransactionTypeForm()
+    return render(
+        request, "guide-form.html", {"form": form, "title": "Создан новый тип "}
+    )
 
-        # ++++++++++++++Редактировать+++++++++++++++++++++
+    # ++++++++++++++Редактировать+++++++++++++++++++++
 
 
 def transtype_edit(request, pk):
@@ -194,13 +200,13 @@ def transtype_edit(request, pk):
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = StatusForm(instance=transtype)
-        return render(
-            request, "guide_form.html", {"form": form, "title": "Тип отредактирован"}
-        )
+    else:
+        form = TransactionTypeForm(instance=transtype)
+    return render(
+        request, "guide-form.html", {"form": form, "title": "Тип отредактирован"}
+    )
 
-        # ++++++++++++++Удалить+++++++++++++++++++++
+    # ++++++++++++++Удалить+++++++++++++++++++++
 
 
 def transtype_delete(request, pk):
@@ -210,7 +216,7 @@ def transtype_delete(request, pk):
         return redirect("main:guide_list")
     return render(
         request,
-        "guide_form.html",
+        "guide-form.html",
         {"object": transtype, "delete_confirm": True, "title": "Тип удален"},
     )
 
@@ -224,15 +230,15 @@ def category_create(request):
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = CategoryForm(instance=category_create)
+    else:
+        form = CategoryForm(instance=category_create)
         return render(
-            request,
-            "guide_form.html",
-            {"form": form, "title": "Создана новая категория "},
-        )
+        request,
+        "guide-form.html",
+        {"form": form, "title": "Создана новая категория "},
+    )
 
-        # ++++++++++++++Редактировать+++++++++++++++++++++
+    # ++++++++++++++Редактировать+++++++++++++++++++++
 
 
 def category_edit(request, pk):
@@ -242,15 +248,15 @@ def category_edit(request, pk):
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = CategoryForm(instance=category)
-        return render(
-            request,
-            "guide_form.html",
-            {"form": form, "title": "Категория отредактирована"},
-        )
+    else:
+        form = CategoryForm(instance=category)
+    return render(
+        request,
+        "guide-form.html",
+        {"form": form, "title": "Категория отредактирована"},
+    )
 
-        # ++++++++++++++Удалить+++++++++++++++++++++
+    # ++++++++++++++Удалить+++++++++++++++++++++
 
 
 def category_delete(request, pk):
@@ -260,7 +266,7 @@ def category_delete(request, pk):
         return redirect("main:guide_list")
     return render(
         request,
-        "guide_form.html",
+        "guide-form.html",
         {"object": category, "delete_confirm": True, "title": "Категория удалена"},
     )
 
@@ -274,15 +280,15 @@ def subcategory_create(request):
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = TransactionTypeForm(instance=subcategory_create)
-        return render(
-            request,
-            "guide_form.html",
-            {"form": form, "title": "Создана новая подкатегория "},
-        )
+    else:
+        form = TransactionTypeForm(instance=subcategory_create)
+    return render(
+        request,
+        "guide-form.html",
+        {"form": form, "title": "Создана новая подкатегория "},
+    )
 
-        # ++++++++++++++Редактировать+++++++++++++++++++++
+    # ++++++++++++++Редактировать+++++++++++++++++++++
 
 
 def subcategory_edit(request, pk):
@@ -292,15 +298,15 @@ def subcategory_edit(request, pk):
         if form.is_valid():
             form.save()
             return redirect("main:guide_list")
-        else:
-            form = StatusForm(instance=subcategory)
-        return render(
-            request,
-            "guide_form.html",
-            {"form": form, "title": "Подкатегория отредактирована"},
-        )
+    else:
+        form = StatusForm(instance=subcategory)
+    return render(
+        request,
+        "guide-form.html",
+        {"form": form, "title": "Подкатегория отредактирована"},
+    )
 
-        # ++++++++++++++Удалить+++++++++++++++++++++
+    # ++++++++++++++Удалить+++++++++++++++++++++
 
 
 def subcategory_delete(request, pk):
@@ -310,7 +316,7 @@ def subcategory_delete(request, pk):
         return redirect("main:guide_list")
     return render(
         request,
-        "guide_form.html",
+        "guide-form.html",
         {
             "object": subcategory,
             "delete_confirm": True,
