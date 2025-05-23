@@ -94,13 +94,15 @@
             <td>{{ t.summa }}</td>
             <td>{{ t.comment }}</td>
             <td>
-              <a href="{% url "main:transaction_edit" t.id %}" class="btn btn-secondary" style="border: 1px solid black">отредактировать</a>
-              <a href="{% url "main:transaction_delete" t.id %}"  class="btn btn-danger" style="border: 1px solid black">Удалить</a>
+              <a href="{% url 'main:transaction_edit' t.id %}" class="btn btn-secondary" style="border: 1px solid black">отредактировать</a>
+              <a href="{% url 'main:transaction_delete' t.id %}"  class="btn btn-danger" style="border: 1px solid black">Удалить</a>
             </td>
         </tr>    
         {% endfor %}
     </tbody>
 </table>
+
+
 {% block footer %}
 <footer class="py-4 bg-primary">
     <div class="container">
@@ -108,5 +110,6 @@
     </div>
 </footer>
 {% endblock footer %}
-{% endblock content %}
 
+
+{% endblock content %}
