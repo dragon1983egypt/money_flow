@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{{% extends "base.html" %}
 
 {% block content %}
 
@@ -14,6 +14,11 @@
         <a href="{% url "main:guide_list" %}" class='btn btn-secondary'>Вернуться назад </a>
     {% endif %}
 </form>
+
+
+{% block footer %}
+
+{% endblock footer %}
 {% endblock content %}
 
     
