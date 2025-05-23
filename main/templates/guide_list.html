@@ -4,7 +4,7 @@
 <h1 style="color:blue;text-align:center;text-decoration:underline;font-style:oblique">Справочники:</h1>
 
 <h4 style="color:blue;text-align:left;text-decoration:underline;font-style:oblique">Тип транзакции</h4>
-<a href="{% url "main:transtype_create" %}" class="btn btn-success btn-sm-mb-1">Добавить</a>
+<a href="{% url 'main:transtype_create' %}" class="btn btn-success btn-sm-mb-1">Добавить</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -82,8 +82,8 @@
             <td>{{ c.name }}</td>
             <td>{{ c.transaction_type.name }}</td>
             <td>
-                <a class="btn btn-secondary btn-sm mb-1" href="{% url 'main:category_edit' c.id %}">Отредактировать</a>
-                <a class="btn btn-danger btn-sm mb-1" href="{% url 'main:category_delete' c.id %}">Удалить</a>
+                <a class="btn btn-secondary btn-sm mb-1" href="{% url 'main:category_edit'  c.id %}">Отредактировать</a>
+                <a class="btn btn-danger btn-sm mb-1" href="{% url 'main:category_delete'  c.id %}">Удалить</a>
             </td>
         </tr>
         {% endfor %}
@@ -117,4 +117,14 @@
     </tbody>
 </table>
 
+
+
+{% block footer %}
+<footer class="py-4 bg-primary">
+    <div class="container">
+        <p class="m-0 text-center text-white">Приложение/ Переводы 💵💲 разработано для студии IT-Solutions в 2025г</p>
+    </div>
+</footer>
+{% endblock footer %}
+{% endblock content %}
 {% endblock content %}
